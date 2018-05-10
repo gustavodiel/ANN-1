@@ -23,10 +23,10 @@ def phi_gustavo(x):
 # phi1(x)'  = sin(x) -1/(2*x^(2/3)) +1
 
 def f_nicolas(x):
-    return x + 1 / x.sqrt() - Decimal(math.cos(x))
+    return x + 1 / x ** Decimal(0.5) - Decimal(cos(x))
 
 def phi_nicolas(x):
-    return Decimal(math.sin(x)) - 1 / ( 2 * x ** Decimal(1.5) ) + 1
+    return Decimal(sin(x)) - 1 / ( 2 * x ** Decimal(1.5) ) + 1
 
 
 def f_teste(x):
@@ -57,5 +57,5 @@ def ponto_fixo(pA, f, g, erro=Decimal("0.001"), max_iteracoes=100):
     return k, -1
 
 if __name__ == "__main__":
-    (n, xn) = ponto_fixo(5.1, f_teste, phi_teste)
+    (n, xn) = ponto_fixo(5.161, f_nicolas, phi_nicolas)
     print(n, xn)
