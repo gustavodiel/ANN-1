@@ -35,7 +35,8 @@ def gx_teste(x,y):
 def gy_teste(x,y):
     return -2*y
 
-def newton_naoLinear(estimX, estimY, f, fx, fy, g, gx, gy, erro=Decimal("0.00001"), maxIteracoes=100):
+# MaxIterações foi feito ficar em loop eterno para verificar todo o 1º quadrante, mudar para 100 senão.
+def newton_naoLinear(estimX, estimY, f, fx, fy, g, gx, gy, erro=Decimal("0.00001"), maxIteracoes=-1):
     k = 0
     # Flag
     t = 0
@@ -44,7 +45,7 @@ def newton_naoLinear(estimX, estimY, f, fx, fy, g, gx, gy, erro=Decimal("0.00001
     x = Decimal(estimX)
     y = Decimal(estimY)
 
-    while k < maxIteracoes:
+    while k > maxIteracoes:
         # Obtem valores para as derivadas parciais com aprox aplicadas
         rfx = fx(x,y)
         rfy = fy(x,y)
@@ -94,11 +95,13 @@ def newton_naoLinear(estimX, estimY, f, fx, fy, g, gx, gy, erro=Decimal("0.00001
         y = yn
 
     # Retorna o que deus quiser quando o erro mínimo não for alcançado
-    return k, -1
+    return k, k, k
 
 if __name__ == "__main__":
         print ("(erro, aproximX, aproximY)")
-        #(n, x, y) = newton_naoLinear(1.5, 1.5, f_teste, fx_teste, fy_teste, g_teste, gx_teste, gy_teste)
-        (n, x, y) = newton_naoLinear(0.244859, 1.299726, f_gu, fx_gu, fy_gu, g_gu, gx_gu, gy_gu)
+        #(n, x, y) = newton_naoLinear(1.5, 1.5, f_teste, fx_teste, fy_teste, g_teste, gx_teste, gy_teste) # alg funcional
+        #(n, x, y) = newton_naoLinear(0.2447, 1.2996, f_gu, fx_gu, fy_gu, g_gu, gx_gu, gy_gu) # gu solucao 1 -- faz em 5 (0.2448... , 1.2997...)
+        (n, x, y) = newton_naoLinear(10, 10, f_gu, fx_gu, fy_gu, g_gu, gx_gu, gy_gu) # divergentefaz em 5 (0.2448... , 1.2997...)
+        #(n, x, y) = newton_naoLinear(-10, -10, f_gu, fx_gu, fy_gu, g_gu, gx_gu, gy_gu) # faz em 5
         #(n, xn) = ponto_fixo(3.21, f_teste, phi_teste)
         print(n, x, y)
