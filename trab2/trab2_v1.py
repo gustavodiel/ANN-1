@@ -19,6 +19,19 @@ def gy_gu(x,y):
     return Decimal(-11*math.sin(x+11*y)) -1
 
 # Função 27 --> Nicolas: #TODO
+def f_ni(x,y):
+    return Decimal.exp(-x) + Decimal.exp(y) -x*x -2*y*y*y
+def fx_ni(x,y):
+    return -Decimal.exp(-x) -2*x
+def fy_ni(x,y):
+    return -Decimal.exp(y) -6*y*y
+
+def g_ni(x,y):
+    return Decimal(math.cos(x+27*y)) +27*x -y -1
+def gx_ni(x,y):
+    return Decimal(-math.sin(x+27*y))+27
+def gy_ni(x,y):
+    return Decimal(-27*math.sin(x+27*y)) -1
 
 # 1o exemplo da foto que mandei ao Diel (funcionando vide resolucao manual -- verificado)
 def f_teste(x,y):
@@ -35,8 +48,7 @@ def gx_teste(x,y):
 def gy_teste(x,y):
     return -2*y
 
-# MaxIterações foi feito ficar em loop eterno para verificar todo o 1º quadrante, mudar para 100 senão.
-def newton_naoLinear(estimX, estimY, f, fx, fy, g, gx, gy, erro=Decimal("0.00001"), maxIteracoes=-1):
+def newton_naoLinear(estimX, estimY, f, fx, fy, g, gx, gy, erro=Decimal("0.00001"), maxIteracoes=100):
     k = 0
     # Flag
     t = 0
@@ -100,8 +112,10 @@ def newton_naoLinear(estimX, estimY, f, fx, fy, g, gx, gy, erro=Decimal("0.00001
 if __name__ == "__main__":
         print ("(erro, aproximX, aproximY)")
         #(n, x, y) = newton_naoLinear(1.5, 1.5, f_teste, fx_teste, fy_teste, g_teste, gx_teste, gy_teste) # alg funcional
+        # Testes com problema do Gustavo
         #(n, x, y) = newton_naoLinear(0.2447, 1.2996, f_gu, fx_gu, fy_gu, g_gu, gx_gu, gy_gu) # gu solucao 1 -- faz em 5 (0.2448... , 1.2997...)
-        (n, x, y) = newton_naoLinear(10, 10, f_gu, fx_gu, fy_gu, g_gu, gx_gu, gy_gu) # divergentefaz em 5 (0.2448... , 1.2997...)
-        #(n, x, y) = newton_naoLinear(-10, -10, f_gu, fx_gu, fy_gu, g_gu, gx_gu, gy_gu) # faz em 5
-        #(n, xn) = ponto_fixo(3.21, f_teste, phi_teste)
+
+        # Testes com problema do Nicolas
+        # (n, x, y) = newton_naoLinear(0, 0, f_ni, fx_ni, fy_ni, g_ni, gx_ni, gy_ni) # ni solucao divergente
+        (n, x, y) = newton_naoLinear(50000, 50000, f_ni, fx_ni, fy_ni, g_ni, gx_ni, gy_ni) # ni solucao divergente
         print(n, x, y)
