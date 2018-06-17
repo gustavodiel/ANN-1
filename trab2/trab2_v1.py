@@ -35,7 +35,7 @@ def gx_teste(x,y):
 def gy_teste(x,y):
     return -2*y
 
-def newton_naoLinear(estimX, estimY, f, fx, fy, g, gx, gy, erro=Decimal("0.001"), maxIteracoes=100):
+def newton_naoLinear(estimX, estimY, f, fx, fy, g, gx, gy, erro=Decimal("0.00001"), maxIteracoes=100):
     k = 0
     # Flag
     t = 0
@@ -47,17 +47,12 @@ def newton_naoLinear(estimX, estimY, f, fx, fy, g, gx, gy, erro=Decimal("0.001")
     while k < maxIteracoes:
         # Obtem valores para as derivadas parciais com aprox aplicadas
         rfx = fx(x,y)
-        #print("TESTE fx: " + str(rfx))
         rfy = fy(x,y)
-        #print("TESTE fy: " + str(rfy))
         rgx = gx(x,y)
-        #print("TESTE gx: " + str(rgx))
         rgy = gy(x,y)
-        #print("TESTE gy: " + str(rgy))
 
         # Calcula o jacobiano do sistema
         jaco = rfx*rgy - rgx*rfy
-        #print ("TESTE: " + str(jaco))
 
         if jaco == 0:
             break;
@@ -74,13 +69,13 @@ def newton_naoLinear(estimX, estimY, f, fx, fy, g, gx, gy, erro=Decimal("0.001")
             xabs = abs(xn - x)
             yabs = abs(yn - y)
             if xabs > yabs:
-                print(x,y, xabs)
+                print(xabs, x,y)
                 t = 1
             elif yabs > xabs:
-                print(x,y, yabs)
+                print(yabs, x,y)
                 t = 2
             else:#Erro é o mesmo p/ ambos, tanto faz
-                print(x,y, xabs)
+                print(xabs, x,y)
                 t = 3
 
             # Verifica se condição de saída foi alcançada
@@ -104,6 +99,6 @@ def newton_naoLinear(estimX, estimY, f, fx, fy, g, gx, gy, erro=Decimal("0.001")
 if __name__ == "__main__":
         print ("(erro, aproximX, aproximY)")
         #(n, x, y) = newton_naoLinear(1.5, 1.5, f_teste, fx_teste, fy_teste, g_teste, gx_teste, gy_teste)
-        (n, x, y) = newton_naoLinear(1, 1, f_gu, fx_gu, fy_gu, g_gu, gx_gu, gy_gu)
+        (n, x, y) = newton_naoLinear(0.244859, 1.299726, f_gu, fx_gu, fy_gu, g_gu, gx_gu, gy_gu)
         #(n, xn) = ponto_fixo(3.21, f_teste, phi_teste)
         print(n, x, y)
