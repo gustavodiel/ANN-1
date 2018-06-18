@@ -48,7 +48,7 @@ def gx_teste(x,y):
 def gy_teste(x,y):
     return -2*y
 
-def newton_naoLinear(estimX, estimY, f, fx, fy, g, gx, gy, erro=Decimal("0.00001"), maxIteracoes=100):
+def newton_naoLinear(estimX, estimY, f, fx, fy, g, gx, gy, erro=Decimal("0.001"), maxIteracoes=100):
     k = 0
     # Flag
     t = 0
@@ -57,15 +57,20 @@ def newton_naoLinear(estimX, estimY, f, fx, fy, g, gx, gy, erro=Decimal("0.00001
     x = Decimal(estimX)
     y = Decimal(estimY)
 
-    while k > maxIteracoes:
+    while k < maxIteracoes:
         # Obtem valores para as derivadas parciais com aprox aplicadas
         rfx = fx(x,y)
+        #print("TESTE fx: " + str(rfx))
         rfy = fy(x,y)
+        #print("TESTE fy: " + str(rfy))
         rgx = gx(x,y)
+        #print("TESTE gx: " + str(rgx))
         rgy = gy(x,y)
+        #print("TESTE gy: " + str(rgy))
 
         # Calcula o jacobiano do sistema
         jaco = rfx*rgy - rgx*rfy
+        #print ("TESTE: " + str(jaco))
 
         if jaco == 0:
             break;
@@ -82,13 +87,13 @@ def newton_naoLinear(estimX, estimY, f, fx, fy, g, gx, gy, erro=Decimal("0.00001
             xabs = abs(xn - x)
             yabs = abs(yn - y)
             if xabs > yabs:
-                print(xabs, x,y)
+                print(xabs,x,y)
                 t = 1
             elif yabs > xabs:
-                print(yabs, x,y)
+                print(yabs,x,y)
                 t = 2
             else:#Erro é o mesmo p/ ambos, tanto faz
-                print(xabs, x,y)
+                print(xabx,y,s)
                 t = 3
 
             # Verifica se condição de saída foi alcançada
@@ -107,15 +112,12 @@ def newton_naoLinear(estimX, estimY, f, fx, fy, g, gx, gy, erro=Decimal("0.00001
         y = yn
 
     # Retorna o que deus quiser quando o erro mínimo não for alcançado
-    return k, k, k
+    return k,-1,-1
 
 if __name__ == "__main__":
         print ("(erro, aproximX, aproximY)")
-        #(n, x, y) = newton_naoLinear(1.5, 1.5, f_teste, fx_teste, fy_teste, g_teste, gx_teste, gy_teste) # alg funcional
-        # Testes com problema do Gustavo
-        #(n, x, y) = newton_naoLinear(0.2447, 1.2996, f_gu, fx_gu, fy_gu, g_gu, gx_gu, gy_gu) # gu solucao 1 -- faz em 5 (0.2448... , 1.2997...)
-
-        # Testes com problema do Nicolas
-        # (n, x, y) = newton_naoLinear(0, 0, f_ni, fx_ni, fy_ni, g_ni, gx_ni, gy_ni) # ni solucao divergente
-        (n, x, y) = newton_naoLinear(50000, 50000, f_ni, fx_ni, fy_ni, g_ni, gx_ni, gy_ni) # ni solucao divergente
+        #(n, x, y) = newton_naoLinear(1.5, 1.5, f_teste, fx_teste, fy_teste, g_teste, gx_teste, gy_teste)
+        (n, x, y) = newton_naoLinear(0.24, 1.29, f_gu, fx_gu, fy_gu, g_gu, gx_gu, gy_gu) # Problema gu converge em 5 para sol em (0.24..., 1.29...)
+        #(n, x, y) = newton_naoLinear(0.6, 6.2, f_gu, fx_gu, fy_gu, g_gu, gx_gu, gy_gu) # Problema gu TESTE
+        #(n, xn) = ponto_fixo(3.21, f_teste, phi_teste)
         print(n, x, y)
