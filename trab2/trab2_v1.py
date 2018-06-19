@@ -18,20 +18,20 @@ def gx_gu(x,y):
 def gy_gu(x,y):
     return -11*Decimal(math.sin(x+11*y)) -1
 
-# Função 27 --> Nicolas: #TODO
+# Função 27 --> Nicolas:
 def f_ni(x,y):
     return Decimal.exp(-x) + Decimal.exp(y) -x*x -2*y*y*y
 def fx_ni(x,y):
     return -Decimal.exp(-x) -2*x
 def fy_ni(x,y):
-    return -Decimal.exp(y) -6*y*y
+    return Decimal.exp(y) -6*y*y
 
 def g_ni(x,y):
     return Decimal(math.cos(x+27*y)) +27*x -y -1
 def gx_ni(x,y):
-    return Decimal(-math.sin(x+27*y))+27
+    return -Decimal(math.sin(x+27*y))+27
 def gy_ni(x,y):
-    return Decimal(-27*math.sin(x+27*y)) -1
+    return -27*Decimal(math.sin(x+27*y)) -1
 
 # 1o exemplo da foto que mandei ao Diel (funcionando vide resolucao manual -- verificado)
 def f_teste(x,y):
@@ -48,7 +48,7 @@ def gx_teste(x,y):
 def gy_teste(x,y):
     return -2*y
 
-def newton_naoLinear(estimX, estimY, f, fx, fy, g, gx, gy, erro=Decimal("0.001"), maxIteracoes=100):
+def newton_naoLinear(estimX, estimY, f, fx, fy, g, gx, gy, erro=Decimal("0.00001"), maxIteracoes=100):
     k = 0
     # Flag
     t = 0
@@ -87,24 +87,24 @@ def newton_naoLinear(estimX, estimY, f, fx, fy, g, gx, gy, erro=Decimal("0.001")
             xabs = abs(xn - x)
             yabs = abs(yn - y)
             if xabs > yabs:
-                print(x,y)
+            #    print(x,y)
                 t = 1
             elif yabs > xabs:
-                print(x,y)
+            #    print(x,y)
                 t = 2
             else:#Erro é o mesmo p/ ambos, tanto faz
-                print(y,s)
+            #    print(y,s)
                 t = 3
 
             # Verifica se condição de saída foi alcançada
             if t == 1:
                 if xabs < erro:
-                    return xabs, x, y
+                    return k, x, y
             elif t == 2:
                 if yabs < erro:
-                    return yabs, x, y
+                    return k, x, y
             else:#Erro é o mesmo p/ ambos, tanto faz
-                return xabs, x, y
+                return k, x, y
 
         # Atualiza iteracao e a nova aprox
         k += 1
@@ -112,16 +112,19 @@ def newton_naoLinear(estimX, estimY, f, fx, fy, g, gx, gy, erro=Decimal("0.001")
         y = yn
 
     # Retorna o que deus quiser quando o erro mínimo não for alcançado
-    return k,-1,-1
+    return "Esgotou limite de iteracoes",x,y
 
 if __name__ == "__main__":
-        print ("(erro, aproximX, aproximY)")
-        #(n, x, y) = newton_naoLinear(1.5, 1.5, f_teste, fx_teste, fy_teste, g_teste, gx_teste, gy_teste)
+        print("    Resultados")
+        print("(iterações, x, y)")
+        # (n, x, y) = newton_naoLinear(1.5, 1.5, f_teste, fx_teste, fy_teste, g_teste, gx_teste, gy_teste)
         # Gustavo
-        #(n, x, y) = newton_naoLinear(0.24, 1.29, f_gu, fx_gu, fy_gu, g_gu, gx_gu, gy_gu) # Problema gu converge em 5 para sol em (0.24..., 1.29...)
-        (n, x, y) = newton_naoLinear(0.6, 6.2, f_gu, fx_gu, fy_gu, g_gu, gx_gu, gy_gu) # Problema gu TESTE
+        # (n, x, y) = newton_naoLinear(-1.6, 1.29, f_gu, fx_gu, fy_gu, g_gu, gx_gu, gy_gu) # Sol 1 do problema gu, sol em 5 p/ (0.2449, 1.2998)
+        # (n, x, y) = newton_naoLinear(0.5, 7.0, f_gu, fx_gu, fy_gu, g_gu, gx_gu, gy_gu) # Sol 2 do problema gu, sol em 5 p/ (0.60200, 6.13457)
+        # (n, x, y) = newton_naoLinear(-10000, -10000, f_gu, fx_gu, fy_gu, g_gu, gx_gu, gy_gu) # Sol 2 do problema gu, sol em 5 p/ (0.60200, 6.13457)
         #
         # Nicolas
-        # (n, x, y) = newton_naoLinear(0.100, 1.338, f_ni, fx_ni, fy_ni, g_ni, gx_ni, gy_ni) # Problema ni converge em 5 para sol em (0.0921, 1.3287)
-        #(n, x, y) = newton_naoLinear(0.2, 7, f_ni, fx_ni, fy_ni, g_ni, gx_ni, gy_ni) # Problema ni converge em 5 para sol em (0.0959, 1.3246)
+        # (n, x, y) = newton_naoLinear(2.19, 1.32, f_ni, fx_ni, fy_ni, g_ni, gx_ni, gy_ni) # Sol 1 do problema ni, sol em 5 p/ (0.0921, 1.3287)
+        # (n, x, y) = newton_naoLinear(9.19, 6.2, f_ni, fx_ni, fy_ni, g_ni, gx_ni, gy_ni) # Sol 2 do problema ni, sol em 5 p/ (0.2944, 6.1325)
+        # (n, x, y) = newton_naoLinear(-10000, -10000, f_ni, fx_ni, fy_ni, g_ni, gx_ni, gy_ni) # Sol 2 do problema gu, sol em 5 p/ (0.60200, 6.13457)
         print(n, x, y)
