@@ -1,0 +1,8 @@
+Ao professor:
+Há uma série de casos de testes programados, mais especificamente há:
+- Problemas do gu --> 11
+- Problemas do ni --> 27
+Cada qual com 2 soluções distintas e convergentes em 5 iterações e uma divergente
+
+O código foi desenvolvido em python2.7 ~> python, estando documentado para facilitar o entendimento do mesmo.
+
