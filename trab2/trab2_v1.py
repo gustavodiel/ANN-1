@@ -120,6 +120,6 @@ if __name__ == "__main__":
         #(n, x, y) = newton_naoLinear(0.24, 1.29, f_gu, fx_gu, fy_gu, g_gu, gx_gu, gy_gu) # Problema gu converge em 5 para sol em (0.24..., 1.29...)
         #(n, x, y) = newton_naoLinear(0.6, 6.2, f_gu, fx_gu, fy_gu, g_gu, gx_gu, gy_gu) # Problema gu TESTE
         # Nicolas
-        #(n, x, y) = newton_naoLinear(0.100, 1.338, f_ni, fx_ni, fy_ni, g_ni, gx_ni, gy_ni) # Problema ni converge em 5 para sol em (0.0959, 1.3246)
-        (n, x, y) = newton_naoLinear(0.2, 7, f_ni, fx_ni, fy_ni, g_ni, gx_ni, gy_ni) # Problema ni converge em 5 para sol em (0.0959, 1.3246)
+        (n, x, y) = newton_naoLinear(0.100, 1.338, f_ni, fx_ni, fy_ni, g_ni, gx_ni, gy_ni) # Problema ni converge em 5 para sol em (0.0921, 1.3287)
+        #(n, x, y) = newton_naoLinear(0.2, 7, f_ni, fx_ni, fy_ni, g_ni, gx_ni, gy_ni) # Problema ni converge em 5 para sol em (0.0959, 1.3246)
         print(n, x, y)
