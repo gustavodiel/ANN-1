@@ -9,14 +9,14 @@ def f_gu(x,y):
 def fx_gu(x,y):
     return -Decimal.exp(-x) -2*x
 def fy_gu(x,y):
-    return -Decimal.exp(y) -6*y*y
+    return Decimal.exp(y) -6*y*y
 
 def g_gu(x,y):
     return Decimal(math.cos(x+11*y)) +11*x -y -1
 def gx_gu(x,y):
-    return Decimal(-math.sin(x+11*y))+11
+    return -Decimal(math.sin(x+11*y))+11
 def gy_gu(x,y):
-    return Decimal(-11*math.sin(x+11*y)) -1
+    return -11*Decimal(math.sin(x+11*y)) -1
 
 # Função 27 --> Nicolas: #TODO
 def f_ni(x,y):
@@ -70,7 +70,7 @@ def newton_naoLinear(estimX, estimY, f, fx, fy, g, gx, gy, erro=Decimal("0.001")
 
         # Calcula o jacobiano do sistema
         jaco = rfx*rgy - rgx*rfy
-        #print ("TESTE: " + str(jaco))
+        # print ("TESTE: " + str(jaco))
 
         if jaco == 0:
             break;
@@ -87,13 +87,13 @@ def newton_naoLinear(estimX, estimY, f, fx, fy, g, gx, gy, erro=Decimal("0.001")
             xabs = abs(xn - x)
             yabs = abs(yn - y)
             if xabs > yabs:
-                print(xabs,x,y)
+                print(x,y)
                 t = 1
             elif yabs > xabs:
-                print(yabs,x,y)
+                print(x,y)
                 t = 2
             else:#Erro é o mesmo p/ ambos, tanto faz
-                print(xabx,y,s)
+                print(y,s)
                 t = 3
 
             # Verifica se condição de saída foi alcançada
@@ -117,9 +117,11 @@ def newton_naoLinear(estimX, estimY, f, fx, fy, g, gx, gy, erro=Decimal("0.001")
 if __name__ == "__main__":
         print ("(erro, aproximX, aproximY)")
         #(n, x, y) = newton_naoLinear(1.5, 1.5, f_teste, fx_teste, fy_teste, g_teste, gx_teste, gy_teste)
+        # Gustavo
         #(n, x, y) = newton_naoLinear(0.24, 1.29, f_gu, fx_gu, fy_gu, g_gu, gx_gu, gy_gu) # Problema gu converge em 5 para sol em (0.24..., 1.29...)
-        #(n, x, y) = newton_naoLinear(0.6, 6.2, f_gu, fx_gu, fy_gu, g_gu, gx_gu, gy_gu) # Problema gu TESTE
+        (n, x, y) = newton_naoLinear(0.6, 6.2, f_gu, fx_gu, fy_gu, g_gu, gx_gu, gy_gu) # Problema gu TESTE
+        #
         # Nicolas
-        (n, x, y) = newton_naoLinear(0.100, 1.338, f_ni, fx_ni, fy_ni, g_ni, gx_ni, gy_ni) # Problema ni converge em 5 para sol em (0.0921, 1.3287)
+        # (n, x, y) = newton_naoLinear(0.100, 1.338, f_ni, fx_ni, fy_ni, g_ni, gx_ni, gy_ni) # Problema ni converge em 5 para sol em (0.0921, 1.3287)
         #(n, x, y) = newton_naoLinear(0.2, 7, f_ni, fx_ni, fy_ni, g_ni, gx_ni, gy_ni) # Problema ni converge em 5 para sol em (0.0959, 1.3246)
         print(n, x, y)
