@@ -117,7 +117,9 @@ def newton_naoLinear(estimX, estimY, f, fx, fy, g, gx, gy, erro=Decimal("0.001")
 if __name__ == "__main__":
         print ("(erro, aproximX, aproximY)")
         #(n, x, y) = newton_naoLinear(1.5, 1.5, f_teste, fx_teste, fy_teste, g_teste, gx_teste, gy_teste)
-        (n, x, y) = newton_naoLinear(0.24, 1.29, f_gu, fx_gu, fy_gu, g_gu, gx_gu, gy_gu) # Problema gu converge em 5 para sol em (0.24..., 1.29...)
+        #(n, x, y) = newton_naoLinear(0.24, 1.29, f_gu, fx_gu, fy_gu, g_gu, gx_gu, gy_gu) # Problema gu converge em 5 para sol em (0.24..., 1.29...)
         #(n, x, y) = newton_naoLinear(0.6, 6.2, f_gu, fx_gu, fy_gu, g_gu, gx_gu, gy_gu) # Problema gu TESTE
-        #(n, xn) = ponto_fixo(3.21, f_teste, phi_teste)
+        # Nicolas
+        #(n, x, y) = newton_naoLinear(0.100, 1.338, f_ni, fx_ni, fy_ni, g_ni, gx_ni, gy_ni) # Problema ni converge em 5 para sol em (0.0959, 1.3246)
+        (n, x, y) = newton_naoLinear(0.2, 7, f_ni, fx_ni, fy_ni, g_ni, gx_ni, gy_ni) # Problema ni converge em 5 para sol em (0.0959, 1.3246)
         print(n, x, y)
